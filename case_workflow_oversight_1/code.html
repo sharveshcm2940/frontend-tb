@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TB Clinical Portal - Case &amp; Workflow Oversight</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-container": "#eceef0",
+                      "on-tertiary-fixed": "#001e2f",
+                      "surface-variant": "#e0e3e5",
+                      "primary-container": "#131b2e",
+                      "surface": "#f7f9fb",
+                      "surface-tint": "#565e74",
+                      "primary": "#000000",
+                      "on-primary-container": "#7c839b",
+                      "tertiary-container": "#001e2f",
+                      "on-surface-variant": "#45464d",
+                      "on-error": "#ffffff",
+                      "tertiary-fixed": "#c9e6ff",
+                      "outline-variant": "#c6c6cd",
+                      "surface-bright": "#f7f9fb",
+                      "secondary-fixed-dim": "#b9c7e0",
+                      "on-surface": "#191c1e",
+                      "on-background": "#191c1e",
+                      "background": "#f7f9fb",
+                      "on-secondary-fixed-variant": "#3a485c",
+                      "surface-container-lowest": "#ffffff",
+                      "on-primary": "#ffffff",
+                      "secondary-fixed": "#d5e3fd",
+                      "outline": "#76777d",
+                      "secondary": "#515f74",
+                      "on-tertiary-fixed-variant": "#004c6e",
+                      "inverse-surface": "#2d3133",
+                      "surface-dim": "#d8dadc",
+                      "on-secondary-fixed": "#0d1c2f",
+                      "on-secondary": "#ffffff",
+                      "error-container": "#ffdad6",
+                      "on-error-container": "#93000a",
+                      "error": "#ba1a1a",
+                      "surface-container-high": "#e6e8ea",
+                      "inverse-on-surface": "#eff1f3",
+                      "tertiary-fixed-dim": "#89ceff",
+                      "secondary-container": "#d5e3fd",
+                      "inverse-primary": "#bec6e0",
+                      "on-secondary-container": "#57657b",
+                      "primary-fixed": "#dae2fd",
+                      "on-tertiary": "#ffffff",
+                      "surface-container-low": "#f2f4f6",
+                      "surface-container-highest": "#e0e3e5",
+                      "primary-fixed-dim": "#bec6e0",
+                      "on-tertiary-container": "#008cc7",
+                      "on-primary-fixed": "#131b2e",
+                      "on-primary-fixed-variant": "#3f465c",
+                      "tertiary": "#000000"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "md": "16px",
+                      "lg": "24px",
+                      "base": "4px",
+                      "container-margin": "32px",
+                      "xs": "4px",
+                      "gutter": "20px",
+                      "xl": "40px",
+                      "sm": "8px"
+              },
+              "fontFamily": {
+                      "label-sm": ["Inter"],
+                      "body-md": ["Inter"],
+                      "label-bold": ["Inter"],
+                      "display-xl": ["Manrope"],
+                      "data-mono": ["Inter"],
+                      "headline-md": ["Manrope"],
+                      "headline-lg": ["Manrope"],
+                      "body-lg": ["Inter"]
+              },
+              "fontSize": {
+                      "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "label-bold": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                      "display-xl": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "data-mono": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+      </script>
+<style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+      </style>
+</head>
+<body class="bg-surface font-body-md text-on-surface">
+<!-- SideNavBar Shell -->
+<aside class="fixed left-0 top-0 h-full flex flex-col pt-4 pb-8 h-screen w-64 border-r rounded-none border-r border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 z-50">
+<div class="px-6 mb-8">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-primary-container rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-white" data-icon="clinical_notes">clinical_notes</span>
+</div>
+<div>
+<h2 class="font-manrope font-extrabold tracking-tighter text-slate-900 dark:text-slate-100 text-lg leading-tight">Admin Oversight</h2>
+<p class="text-[10px] uppercase tracking-widest text-slate-500 font-bold">Workflow Management</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 px-4 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900 transition-all rounded-xl font-manrope text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-slate-200/50 dark:bg-slate-800/50 text-slate-900 dark:text-white border-r-2 border-slate-900 dark:border-slate-50 transition-all font-manrope text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="medical_services">medical_services</span>
+<span>Cases</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900 transition-all rounded-xl font-manrope text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="group">patient_list</span>
+<span>Patients</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900 transition-all rounded-xl font-manrope text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="location_city">location_city</span>
+<span>Facilities</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900 transition-all rounded-xl font-manrope text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span>Reports</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900 transition-all rounded-xl font-manrope text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+</nav>
+<div class="px-4 pt-4 mt-auto border-t border-slate-200">
+<div class="p-4 rounded-xl bg-primary-container text-white">
+<p class="text-xs font-semibold opacity-80 mb-1">System Health</p>
+<div class="flex items-center justify-between mb-2">
+<span class="text-sm font-bold">14 Facilities Online</span>
+<span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+</div>
+<div class="w-full bg-slate-700 h-1 rounded-full overflow-hidden">
+<div class="bg-emerald-400 h-full w-[92%]"></div>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Wrapper -->
+<main class="ml-64 min-h-screen">
+<!-- TopAppBar Shell -->
+<header class="sticky top-0 w-full flex justify-between items-center px-6 h-16 bg-white/85 dark:bg-slate-900/85 backdrop-blur-lg border-b border-slate-200 dark:border-slate-800 shadow-sm shadow-slate-900/5 z-40">
+<div class="flex items-center gap-4">
+<div class="relative">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-slate-400" data-icon="search">search</span>
+<input class="pl-10 pr-4 py-1.5 bg-slate-100/50 border-none rounded-full text-sm w-80 focus:ring-2 focus:ring-primary-container" placeholder="Search Patient ID, Facility, or Status..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-slate-500 hover:bg-slate-100/50 transition-colors rounded-full relative">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full border-2 border-white"></span>
+</button>
+<button class="p-2 text-slate-500 hover:bg-slate-100/50 transition-colors rounded-full">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<div class="h-8 w-[1px] bg-slate-200 mx-2"></div>
+<div class="flex items-center gap-3">
+<div class="text-right">
+<p class="text-xs font-bold text-slate-900">Dr. Sarah Chen</p>
+<p class="text-[10px] text-slate-500">System Administrator</p>
+</div>
+<img alt="Administrator Profile" class="w-8 h-8 rounded-full border border-slate-200 object-cover" data-alt="professional portrait of a female doctor in her 40s with a warm but authoritative look wearing a white lab coat" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDSciqa5DLpmq5PfYs2U-vkuNuY4BZCKMIZwQROE20sHuO0xi3VFUxf6OuyzhvH5vwURi6f-Xwee2mMA7tyYig0JlWhPKKhbkb539WS1T7Hplu1qWhREPyYhBwRCICqnGEmEEGH1Bs3gSgwE1dIskhOKe58JrA2jIp6HmYlu6z2gS4d_Fw_UZgh3dEVeVKsqtnKdQqdv8cSPqOh4r3siMjaXplvyk5G99A7oeo0DmO4jKLLJWwWGSF9_t4JU1dxmN_8Qw010XBiyjM"/>
+</div>
+</div>
+</header>
+<!-- Page Content -->
+<div class="p-lg">
+<!-- Page Header -->
+<div class="mb-xl flex items-end justify-between">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-slate-900 tracking-tight">Case &amp; Workflow Oversight</h1>
+<p class="text-body-md text-slate-500 mt-1">Monitoring patient progression and system bottlenecks across 14 facilities.</p>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 rounded-lg text-sm font-semibold text-slate-700 hover:bg-slate-50 transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="calendar_today">calendar_today</span>
+                        Last 30 Days
+                    </button>
+<button class="flex items-center gap-2 px-4 py-2 bg-primary-container text-white rounded-lg text-sm font-semibold hover:bg-slate-800 transition-all active:scale-95">
+<span class="material-symbols-outlined text-sm" data-icon="download">download</span>
+                        Export Report
+                    </button>
+</div>
+</div>
+<!-- Workflow Pipeline -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter mb-xl">
+<!-- Screened -->
+<div class="glass-card p-6 rounded-xl border-l-4 border-l-slate-400">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 bg-slate-100 rounded-lg">
+<span class="material-symbols-outlined text-slate-600" data-icon="person_search">person_search</span>
+</div>
+<span class="text-xs font-bold text-emerald-600 bg-emerald-50 px-2 py-1 rounded">+12%</span>
+</div>
+<h3 class="text-label-sm text-slate-500 uppercase tracking-wider mb-1">Screened</h3>
+<div class="flex items-baseline gap-2">
+<span class="text-3xl font-bold text-slate-900">1,240</span>
+<span class="text-xs font-medium text-slate-400">Active</span>
+</div>
+<div class="mt-4 w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
+<div class="bg-slate-400 h-full w-full"></div>
+</div>
+</div>
+<!-- Diagnostic Review -->
+<div class="glass-card p-6 rounded-xl border-l-4 border-l-amber-400">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 bg-amber-50 rounded-lg">
+<span class="material-symbols-outlined text-amber-600" data-icon="microscope">magnification_small</span>
+</div>
+<span class="text-xs font-bold text-error bg-error-container px-2 py-1 rounded">+8%</span>
+</div>
+<h3 class="text-label-sm text-slate-500 uppercase tracking-wider mb-1">Diagnostic Review</h3>
+<div class="flex items-baseline gap-2">
+<span class="text-3xl font-bold text-slate-900">412</span>
+<span class="text-xs font-medium text-amber-600">Pending</span>
+</div>
+<div class="mt-4 w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
+<div class="bg-amber-400 h-full w-3/4"></div>
+</div>
+</div>
+<!-- Treatment Initiated -->
+<div class="glass-card p-6 rounded-xl border-l-4 border-l-blue-500">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 bg-blue-50 rounded-lg">
+<span class="material-symbols-outlined text-blue-600" data-icon="vaccines">vaccines</span>
+</div>
+<span class="text-xs font-bold text-emerald-600 bg-emerald-50 px-2 py-1 rounded">+5%</span>
+</div>
+<h3 class="text-label-sm text-slate-500 uppercase tracking-wider mb-1">Treatment Initiated</h3>
+<div class="flex items-baseline gap-2">
+<span class="text-3xl font-bold text-slate-900">890</span>
+<span class="text-xs font-medium text-blue-600">Active</span>
+</div>
+<div class="mt-4 w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
+<div class="bg-blue-500 h-full w-4/5"></div>
+</div>
+</div>
+<!-- Discharged -->
+<div class="glass-card p-6 rounded-xl border-l-4 border-l-emerald-500">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 bg-emerald-50 rounded-lg">
+<span class="material-symbols-outlined text-emerald-600" data-icon="task_alt">task_alt</span>
+</div>
+<span class="text-xs font-bold text-emerald-600 bg-emerald-50 px-2 py-1 rounded">2,105 Total</span>
+</div>
+<h3 class="text-label-sm text-slate-500 uppercase tracking-wider mb-1">Discharged/Complete</h3>
+<div class="flex items-baseline gap-2">
+<span class="text-3xl font-bold text-slate-900">2,105</span>
+<span class="text-xs font-medium text-emerald-600">Verified</span>
+</div>
+<div class="mt-4 w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
+<div class="bg-emerald-500 h-full w-full"></div>
+</div>
+</div>
+</div>
+<!-- Bento Analytics Section -->
+<div class="grid grid-cols-12 gap-gutter mb-xl">
+<!-- Bottleneck Analysis (Col 1-4) -->
+<div class="col-span-12 lg:col-span-4 glass-card p-6 rounded-xl">
+<div class="flex items-center justify-between mb-6">
+<h2 class="font-headline-md text-slate-900 text-lg">Bottleneck Analysis</h2>
+<span class="material-symbols-outlined text-error" data-icon="warning">warning</span>
+</div>
+<div class="space-y-4">
+<div class="p-4 bg-error-container/30 border border-error/10 rounded-xl">
+<div class="flex justify-between items-start mb-2">
+<span class="font-bold text-slate-900 text-sm">Facility B</span>
+<span class="text-error font-bold text-xs">+40% Time</span>
+</div>
+<p class="text-xs text-slate-600 mb-3">Avg. Diagnostic Review time is significantly higher than regional benchmark.</p>
+<div class="flex items-center gap-2">
+<div class="flex-1 h-2 bg-slate-200 rounded-full overflow-hidden">
+<div class="bg-error h-full w-[85%]"></div>
+</div>
+<span class="text-[10px] font-bold text-slate-500">14.2 Days</span>
+</div>
+</div>
+<div class="p-4 bg-amber-50 border border-amber-100 rounded-xl">
+<div class="flex justify-between items-start mb-2">
+<span class="font-bold text-slate-900 text-sm">Central Lab</span>
+<span class="text-amber-600 font-bold text-xs">+15% Load</span>
+</div>
+<p class="text-xs text-slate-600 mb-3">Sample backlog accumulating in sputum analysis queue.</p>
+<div class="flex items-center gap-2">
+<div class="flex-1 h-2 bg-slate-200 rounded-full overflow-hidden">
+<div class="bg-amber-400 h-full w-[65%]"></div>
+</div>
+<span class="text-[10px] font-bold text-slate-500">8.5 Days</span>
+</div>
+</div>
+<div class="p-4 bg-slate-50 border border-slate-100 rounded-xl">
+<div class="flex justify-between items-start mb-2">
+<span class="font-bold text-slate-900 text-sm">Facility D</span>
+<span class="text-slate-500 font-bold text-xs">Normal</span>
+</div>
+<p class="text-xs text-slate-600 mb-3">Performance within optimal threshold (±2%).</p>
+<div class="flex items-center gap-2">
+<div class="flex-1 h-2 bg-slate-200 rounded-full overflow-hidden">
+<div class="bg-emerald-500 h-full w-[40%]"></div>
+</div>
+<span class="text-[10px] font-bold text-slate-500">3.1 Days</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Facility Comparison (Col 5-12) -->
+<div class="col-span-12 lg:col-span-8 glass-card p-6 rounded-xl">
+<div class="flex items-center justify-between mb-8">
+<h2 class="font-headline-md text-slate-900 text-lg">Facility Comparison: Outcomes vs Volume</h2>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-primary-container"></span>
+<span class="text-xs font-medium text-slate-500">Total Cases</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-emerald-500"></span>
+<span class="text-xs font-medium text-slate-500">Success Rate</span>
+</div>
+</div>
+</div>
+<div class="h-64 flex items-end justify-between gap-6 px-4">
+<!-- Bar chart placeholder with divs -->
+<div class="flex-1 flex flex-col items-center gap-2 group">
+<div class="w-full flex items-end gap-1 h-full">
+<div class="flex-1 bg-primary-container rounded-t h-[80%] transition-all group-hover:opacity-80"></div>
+<div class="flex-1 bg-emerald-500 rounded-t h-[75%] transition-all group-hover:opacity-80"></div>
+</div>
+<span class="text-[10px] font-bold text-slate-400">FAC-A</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-2 group">
+<div class="w-full flex items-end gap-1 h-full">
+<div class="flex-1 bg-primary-container rounded-t h-[95%] transition-all group-hover:opacity-80"></div>
+<div class="flex-1 bg-emerald-500 rounded-t h-[40%] transition-all group-hover:opacity-80"></div>
+</div>
+<span class="text-[10px] font-bold text-slate-400">FAC-B</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-2 group">
+<div class="w-full flex items-end gap-1 h-full">
+<div class="flex-1 bg-primary-container rounded-t h-[60%] transition-all group-hover:opacity-80"></div>
+<div class="flex-1 bg-emerald-500 rounded-t h-[58%] transition-all group-hover:opacity-80"></div>
+</div>
+<span class="text-[10px] font-bold text-slate-400">FAC-C</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-2 group">
+<div class="w-full flex items-end gap-1 h-full">
+<div class="flex-1 bg-primary-container rounded-t h-[70%] transition-all group-hover:opacity-80"></div>
+<div class="flex-1 bg-emerald-500 rounded-t h-[68%] transition-all group-hover:opacity-80"></div>
+</div>
+<span class="text-[10px] font-bold text-slate-400">FAC-D</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-2 group">
+<div class="w-full flex items-end gap-1 h-full">
+<div class="flex-1 bg-primary-container rounded-t h-[45%] transition-all group-hover:opacity-80"></div>
+<div class="flex-1 bg-emerald-500 rounded-t h-[42%] transition-all group-hover:opacity-80"></div>
+</div>
+<span class="text-[10px] font-bold text-slate-400">FAC-E</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-2 group">
+<div class="w-full flex items-end gap-1 h-full">
+<div class="flex-1 bg-primary-container rounded-t h-[85%] transition-all group-hover:opacity-80"></div>
+<div class="flex-1 bg-emerald-500 rounded-t h-[80%] transition-all group-hover:opacity-80"></div>
+</div>
+<span class="text-[10px] font-bold text-slate-400">FAC-F</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Active Case Directory -->
+<div class="glass-card rounded-xl overflow-hidden mb-xl">
+<div class="p-6 border-b border-slate-200 flex items-center justify-between bg-white/50">
+<div>
+<h2 class="font-headline-md text-slate-900 text-lg">Active Case Directory</h2>
+<p class="text-xs text-slate-500">Real-time tracking of patients currently in the screening lifecycle.</p>
+</div>
+<div class="flex gap-2">
+<select class="text-xs font-semibold border-slate-200 rounded-lg bg-white px-3 py-2 text-slate-600 focus:ring-primary-container">
+<option>All Statuses</option>
+<option>Screened</option>
+<option>Diagnostic Review</option>
+<option>Treatment Initiated</option>
+</select>
+<select class="text-xs font-semibold border-slate-200 rounded-lg bg-white px-3 py-2 text-slate-600 focus:ring-primary-container">
+<option>All Facilities</option>
+<option>Facility A</option>
+<option>Facility B</option>
+<option>Central Lab</option>
+</select>
+</div>
+</div>
+<table class="w-full text-left border-collapse">
+<thead class="bg-slate-50/50">
+<tr>
+<th class="px-6 py-4 text-[10px] font-bold text-slate-500 uppercase tracking-wider">Patient ID</th>
+<th class="px-6 py-4 text-[10px] font-bold text-slate-500 uppercase tracking-wider">Current Status</th>
+<th class="px-6 py-4 text-[10px] font-bold text-slate-500 uppercase tracking-wider">Facility</th>
+<th class="px-6 py-4 text-[10px] font-bold text-slate-500 uppercase tracking-wider">Days in Stage</th>
+<th class="px-6 py-4 text-[10px] font-bold text-slate-500 uppercase tracking-wider">Priority</th>
+<th class="px-6 py-4 text-[10px] font-bold text-slate-500 uppercase tracking-wider">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-100">
+<tr class="hover:bg-blue-50/30 transition-colors cursor-pointer group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-[10px] font-bold text-slate-600">TB</div>
+<span class="font-data-mono text-sm text-slate-900">#PAT-89210-BC</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold bg-amber-50 text-amber-600 border border-amber-100">
+<span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+                                    Diagnostic Review
+                                </span>
+</td>
+<td class="px-6 py-4 text-sm text-slate-600">Facility B</td>
+<td class="px-6 py-4 text-sm font-medium text-slate-900">12 Days</td>
+<td class="px-6 py-4">
+<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-error-container text-error">High</span>
+</td>
+<td class="px-6 py-4">
+<button class="text-slate-400 hover:text-primary-container transition-colors">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-blue-50/30 transition-colors cursor-pointer group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-[10px] font-bold text-slate-600">TB</div>
+<span class="font-data-mono text-sm text-slate-900">#PAT-77412-XA</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold bg-blue-50 text-blue-600 border border-blue-100">
+<span class="w-1.5 h-1.5 rounded-full bg-blue-400"></span>
+                                    Treatment Initiated
+                                </span>
+</td>
+<td class="px-6 py-4 text-sm text-slate-600">Facility A</td>
+<td class="px-6 py-4 text-sm font-medium text-slate-900">3 Days</td>
+<td class="px-6 py-4">
+<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-100 text-slate-500">Low</span>
+</td>
+<td class="px-6 py-4">
+<button class="text-slate-400 hover:text-primary-container transition-colors">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-blue-50/30 transition-colors cursor-pointer group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-[10px] font-bold text-slate-600">TB</div>
+<span class="font-data-mono text-sm text-slate-900">#PAT-90122-MM</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold bg-slate-100 text-slate-600 border border-slate-200">
+<span class="w-1.5 h-1.5 rounded-full bg-slate-400"></span>
+                                    Screened
+                                </span>
+</td>
+<td class="px-6 py-4 text-sm text-slate-600">Facility D</td>
+<td class="px-6 py-4 text-sm font-medium text-slate-900">1 Day</td>
+<td class="px-6 py-4">
+<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-100 text-amber-700">Medium</span>
+</td>
+<td class="px-6 py-4">
+<button class="text-slate-400 hover:text-primary-container transition-colors">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-blue-50/30 transition-colors cursor-pointer group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-[10px] font-bold text-slate-600">TB</div>
+<span class="font-data-mono text-sm text-slate-900">#PAT-11490-CC</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold bg-amber-50 text-amber-600 border border-amber-100">
+<span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+                                    Diagnostic Review
+                                </span>
+</td>
+<td class="px-6 py-4 text-sm text-slate-600">Facility B</td>
+<td class="px-6 py-4 text-sm font-medium text-slate-900">15 Days</td>
+<td class="px-6 py-4">
+<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-error-container text-error">High</span>
+</td>
+<td class="px-6 py-4">
+<button class="text-slate-400 hover:text-primary-container transition-colors">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="p-4 bg-white/50 border-t border-slate-200 flex items-center justify-between text-xs font-semibold text-slate-500">
+<p>Showing 1-10 of 1,240 results</p>
+<div class="flex gap-2">
+<button class="px-3 py-1 border border-slate-200 rounded hover:bg-slate-50">Prev</button>
+<button class="px-3 py-1 border border-slate-200 bg-primary-container text-white rounded">1</button>
+<button class="px-3 py-1 border border-slate-200 rounded hover:bg-slate-50">2</button>
+<button class="px-3 py-1 border border-slate-200 rounded hover:bg-slate-50">3</button>
+<button class="px-3 py-1 border border-slate-200 rounded hover:bg-slate-50">Next</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Contextual FAB -->
+<button class="fixed bottom-8 right-8 w-14 h-14 bg-primary-container text-white rounded-full shadow-xl shadow-primary-container/30 flex items-center justify-center active:scale-90 duration-150 z-50">
+<span class="material-symbols-outlined text-2xl" data-icon="add">add</span>
+</button>
+</body></html>
